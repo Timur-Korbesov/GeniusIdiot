@@ -1,4 +1,6 @@
-﻿namespace The_idiot_genius
+﻿using System.IO;
+
+namespace The_idiot_genius
 {
     class Program
     {
@@ -27,12 +29,25 @@
             Console.WriteLine($"{userName}, вы ответили правильно на {correctAnswersCount} из {questions.Length} вопросов.");
 
             string diagnose = CalculateDiagnose(correctAnswersCount, answers.Length);
-            Console.WriteLine($"Официально вы {diagnose}");
+            SaveData(userName, correctAnswersCount, diagnose);
 
+            Console.WriteLine($"Официально вы {diagnose}");
             Console.ReadLine();
 
 
         }
+
+        private static void SaveData(string name, int correctAnswer, string diagnose)
+        {
+            StreamWriter dataFile = new StreamWriter("data.txt", true);
+
+            dataFile.WriteLine(name + "\t" + correctAnswer + "\t" + diagnose);
+
+            dataFile.Close();
+
+        }
+
+
         static int GetUserAnswer()
         {
             while (true)
@@ -63,6 +78,8 @@
             int correctAnswersProcent = correctAnswersCount * 100 / allAnswersCount;
 
             string diagnose = diagnoses[(correctAnswersProcent + 19) / 20];
+
+
             return diagnose;
         }
 
