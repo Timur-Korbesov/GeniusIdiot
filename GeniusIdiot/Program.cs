@@ -26,7 +26,7 @@
             Console.Clear();
             Console.WriteLine($"{userName}, вы ответили правильно на {correctAnswersCount} из {questions.Length} вопросов.");
 
-            string diagnose = CalculateDiagnose(correctAnswersCount);
+            string diagnose = CalculateDiagnose(correctAnswersCount, answers.Length);
             Console.WriteLine($"Официально вы {diagnose}");
 
             Console.ReadLine();
@@ -49,7 +49,7 @@
 
         }
 
-        private static string CalculateDiagnose(int correctAnswersCount)
+        private static string CalculateDiagnose(int correctAnswersCount, int allAnswersCount)
         {
             string[] diagnoses = {
                 "Идиот",
@@ -59,7 +59,10 @@
                 "Талантливый",
                 "Гений",
             };
-            string diagnose = diagnoses[correctAnswersCount];
+
+            int correctAnswersProcent = correctAnswersCount * 100 / allAnswersCount;
+
+            string diagnose = diagnoses[(correctAnswersProcent + 19) / 20];
             return diagnose;
         }
 
