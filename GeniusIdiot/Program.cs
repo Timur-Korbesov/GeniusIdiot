@@ -7,18 +7,18 @@ namespace The_idiot_genius
     {
         static void Main(string[] args)
         {
-            var userName = GetUserName();
+            string userName = GetUserName();
             string[] questions = GetQuestions();
             int[] answers = GetAnswers();
 
-            var correctAnswersCount = 0;
+            int correctAnswersCount = 0;
 
             for (int i = 0; i < questions.Length; i++)
             {
                 Console.Clear();
                 Console.Write(questions[i] + ": ");
 
-                var userAnswer = GetUserAnswer();
+                int userAnswer = GetUserAnswer();
 
                 if (userAnswer == answers[i])
                 {
@@ -29,22 +29,24 @@ namespace The_idiot_genius
             Console.Clear();
             Console.WriteLine($"{userName}, вы ответили правильно на {correctAnswersCount} из {questions.Length} вопросов.");
 
-            var diagnose = CalculateDiagnose(correctAnswersCount, answers.Length);
+            string diagnose = CalculateDiagnose(correctAnswersCount, answers.Length);
             SaveData(userName, correctAnswersCount, diagnose);
 
             Console.WriteLine($"Официально вы {diagnose}");
 
             Console.WriteLine("Желаете ознакомиться с предыдущими результатами игр? Введите да/нет");
-            var yesOrNo = Console.ReadLine();
+            string yesOrNo = Console.ReadLine();
 
-            while (yesOrNo.ToLower() != "да" && yesOrNo.ToLower() != "нет") {
+            while (yesOrNo.ToLower() != "да" && yesOrNo.ToLower() != "нет")
+            {
                 Console.WriteLine("Введите 'да' или 'нет':");
                 yesOrNo = Console.ReadLine().ToLower();
             }
 
-            if (yesOrNo.ToLower() == "да") {
+            if (yesOrNo.ToLower() == "да")
+            {
                 StreamReader dataFile = new StreamReader("data.txt");
-                var line = dataFile.ReadLine();
+                string line = dataFile.ReadLine();
 
                 while (line != null)
                 {
@@ -54,7 +56,9 @@ namespace The_idiot_genius
                 }
 
                 dataFile.Close();
-            } else {
+            }
+            else
+            {
                 Console.WriteLine("Хорошо, спасибо за игру!");
             }
 
@@ -65,8 +69,8 @@ namespace The_idiot_genius
 
         private static void SaveData(string name, int correctAnswer, string diagnose)
         {
-            
-            var dataFile = new StreamWriter("data.txt", true);
+
+            StreamWriter dataFile = new StreamWriter("data.txt", true);
 
             dataFile.WriteLine(name + "\t" + correctAnswer + "\t" + diagnose);
 
@@ -103,9 +107,9 @@ namespace The_idiot_genius
                 "Гений",
             };
 
-            var correctAnswersProcent = correctAnswersCount * 100 / allAnswersCount;
+            int correctAnswersProcent = correctAnswersCount * 100 / allAnswersCount;
 
-            var diagnose = diagnoses[(correctAnswersProcent + 19) / 20];
+            string diagnose = diagnoses[(correctAnswersProcent + 19) / 20];
 
 
             return diagnose;
@@ -130,7 +134,7 @@ namespace The_idiot_genius
         private static string GetUserName()
         {
             Console.Write("Введите ваше Имя: ");
-            var userName = Console.ReadLine();
+            string userName = Console.ReadLine();
 
             return userName;
         }
