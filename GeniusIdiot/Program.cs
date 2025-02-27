@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace The_idiot_genius
 {
@@ -32,6 +33,31 @@ namespace The_idiot_genius
             SaveData(userName, correctAnswersCount, diagnose);
 
             Console.WriteLine($"Официально вы {diagnose}");
+
+            Console.WriteLine("Желаете ознакомиться с предыдущими результатами игр? Введите да/нет");
+            string yesOrNo = Console.ReadLine();
+
+            while (yesOrNo.ToLower() != "да" && yesOrNo.ToLower() != "нет") {
+                Console.WriteLine("Введите 'да' или 'нет':");
+                yesOrNo = Console.ReadLine().ToLower();
+            }
+
+            if (yesOrNo.ToLower() == "да") {
+                StreamReader dataFile = new StreamReader("data.txt");
+                string line = dataFile.ReadLine();
+
+                while (line != null)
+                {
+                    Console.WriteLine(line);
+
+                    line = dataFile.ReadLine();
+                }
+
+                dataFile.Close();
+            } else {
+                Console.WriteLine("Хорошо, спасибо за игру!");
+            }
+
             Console.ReadLine();
 
 
@@ -43,6 +69,7 @@ namespace The_idiot_genius
             StreamWriter dataFile = new StreamWriter("data.txt", true);
 
             dataFile.WriteLine(name + "\t" + correctAnswer + "\t" + diagnose);
+
 
             dataFile.Close();
 
