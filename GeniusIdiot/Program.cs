@@ -39,6 +39,7 @@ namespace The_idiot_genius
 
         private static void SaveData(string name, int correctAnswer, string diagnose)
         {
+            
             StreamWriter dataFile = new StreamWriter("data.txt", true);
 
             dataFile.WriteLine(name + "\t" + correctAnswer + "\t" + diagnose);
